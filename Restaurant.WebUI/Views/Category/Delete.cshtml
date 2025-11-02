@@ -1,0 +1,22 @@
+﻿@using Restaurant.Models
+@model Category
+@{
+    ViewData["Title"] = "Delete";
+
+}
+
+<div class="container mt-5">
+    <h2 class="text-center text-danger mb-4">🗑️ Delete Category</h2>
+
+    <div class="alert alert-warning text-center">
+        Are you sure you want to delete <strong>@Model.Name</strong>?
+    </div>
+
+    <form asp-action="Delete" method="post" class="text-center">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+
+        <button type="submit" class="btn btn-danger me-2">🗑️ Confirm Delete</button>
+        <a asp-action="Index" class="btn btn-secondary">❌ Cancel</a>
+    </form>
+</div>

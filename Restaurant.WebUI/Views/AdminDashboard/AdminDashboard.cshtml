@@ -1,0 +1,102 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Admin Dashboard";
+    var recentOrders = ViewBag.RecentOrders as List<Restaurant.Models.Order>;
+}
+
+<div class="container-fluid p-4">
+    <h2 class="mb-4">👑 Admin Dashboard</h2>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card shadow-sm p-3">
+                <h6 class="text-muted">Categories</h6>
+                <h3>@ViewBag.TotalCategories</h3>
+                <a class="btn btn-sm btn-outline-primary mt-2" href="/AdminCategory/Index">Manage</a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm p-3">
+                <h6 class="text-muted">Products</h6>
+                <h3>@ViewBag.TotalProducts</h3>
+                <a class="btn btn-sm btn-outline-success mt-2" href="/AdminProduct/Index">Manage</a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm p-3">
+                <h6 class="text-muted">Orders</h6>
+                <h3>@ViewBag.TotalOrders</h3>
+                <a class="btn btn-sm btn-outline-warning mt-2" href="/AdminOrders/Index">View Orders</a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm p-3">
+                <h6 class="text-muted">Users</h6>
+                <h3>@ViewBag.TotalUsers</h3>
+                <a class="btn btn-sm btn-outline-danger mt-2" href="/AdminUsers/Index">Manage Users</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-lg-8">
+            <div class="card p-3 shadow-sm">
+                <h5>Overview</h5>
+                <canvas id="overviewChart" height="120"></canvas>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card p-3 shadow-sm">
+                <h5>Recent Orders</h5>
+                @if (recentOrders == null || !recentOrders.Any())
+                {
+                    <p class="text-muted">No recent orders.</p>
+                }
+                else
+                {
+                    <ul class="list-group">
+                        @foreach (var o in recentOrders)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>Order #@o.Id</strong><br />
+                                    <small class="text-muted">@o.CreatedAt.ToString("dd/MM/yyyy HH:mm")</small>
+                                </div>
+                                <span class="badge bg-primary">@o.Status</span>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('overviewChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Categories', 'Products', 'Orders', 'Users'],
+            datasets: [{
+                label: 'Counts',
+                data: [
+                    @ViewBag.TotalCategories,
+                    @ViewBag.TotalProducts,
+                    @ViewBag.TotalOrders,
+                    @ViewBag.TotalUsers
+                ],
+                backgroundColor: ['#0d6efd','#198754','#ffc107','#dc3545']
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+</script>

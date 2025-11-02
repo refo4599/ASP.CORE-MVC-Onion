@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\ITI - .NET\\MVC\\Final Project\\Restaurant\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{19428E8E-59CA-4E76-BC78-89B5D70CB095}|Restaurant.WebUI\\Restaurant.WebUI.csproj|e:\\iti - .net\\mvc\\final project\\restaurant\\restaurant.webui\\views\\shared\\_userlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{19428E8E-59CA-4E76-BC78-89B5D70CB095}|Restaurant.WebUI\\Restaurant.WebUI.csproj|solutionrelative:restaurant.webui\\views\\shared\\_userlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19428E8E-59CA-4E76-BC78-89B5D70CB095}|Restaurant.WebUI\\Restaurant.WebUI.csproj|e:\\iti - .net\\mvc\\final project\\restaurant\\restaurant.webui\\views\\menu\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{19428E8E-59CA-4E76-BC78-89B5D70CB095}|Restaurant.WebUI\\Restaurant.WebUI.csproj|solutionrelative:restaurant.webui\\views\\menu\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19428E8E-59CA-4E76-BC78-89B5D70CB095}|Restaurant.WebUI\\Restaurant.WebUI.csproj|e:\\iti - .net\\mvc\\final project\\restaurant\\restaurant.webui\\views\\menu\\favourites.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{19428E8E-59CA-4E76-BC78-89B5D70CB095}|Restaurant.WebUI\\Restaurant.WebUI.csproj|solutionrelative:restaurant.webui\\views\\menu\\favourites.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19428E8E-59CA-4E76-BC78-89B5D70CB095}|Restaurant.WebUI\\Restaurant.WebUI.csproj|e:\\iti - .net\\mvc\\final project\\restaurant\\restaurant.webui\\controllers\\menucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19428E8E-59CA-4E76-BC78-89B5D70CB095}|Restaurant.WebUI\\Restaurant.WebUI.csproj|solutionrelative:restaurant.webui\\controllers\\menucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19428E8E-59CA-4E76-BC78-89B5D70CB095}|Restaurant.WebUI\\Restaurant.WebUI.csproj|e:\\iti - .net\\mvc\\final project\\restaurant\\restaurant.webui\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{19428E8E-59CA-4E76-BC78-89B5D70CB095}|Restaurant.WebUI\\Restaurant.WebUI.csproj|solutionrelative:restaurant.webui\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_UserLayout.cshtml",
+              "DocumentMoniker": "E:\\ITI - .NET\\MVC\\Final Project\\Restaurant\\Restaurant.WebUI\\Views\\Shared\\_UserLayout.cshtml",
+              "RelativeDocumentMoniker": "Restaurant.WebUI\\Views\\Shared\\_UserLayout.cshtml",
+              "ToolTip": "E:\\ITI - .NET\\MVC\\Final Project\\Restaurant\\Restaurant.WebUI\\Views\\Shared\\_UserLayout.cshtml*",
+              "RelativeToolTip": "Restaurant.WebUI\\Views\\Shared\\_UserLayout.cshtml*",
+              "ViewState": "AgIAAHoAAAAAo4vOM3IpwIYAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-31T14:45:34.407Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MenuController.cs",
+              "DocumentMoniker": "E:\\ITI - .NET\\MVC\\Final Project\\Restaurant\\Restaurant.WebUI\\Controllers\\MenuController.cs",
+              "RelativeDocumentMoniker": "Restaurant.WebUI\\Controllers\\MenuController.cs",
+              "ToolTip": "E:\\ITI - .NET\\MVC\\Final Project\\Restaurant\\Restaurant.WebUI\\Controllers\\MenuController.cs*",
+              "RelativeToolTip": "Restaurant.WebUI\\Controllers\\MenuController.cs*",
+              "ViewState": "AgIAAHwAAAAAAAAAAAAgwIEAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T14:27:52.114Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Favourites.cshtml",
+              "DocumentMoniker": "E:\\ITI - .NET\\MVC\\Final Project\\Restaurant\\Restaurant.WebUI\\Views\\Menu\\Favourites.cshtml",
+              "RelativeDocumentMoniker": "Restaurant.WebUI\\Views\\Menu\\Favourites.cshtml",
+              "ToolTip": "E:\\ITI - .NET\\MVC\\Final Project\\Restaurant\\Restaurant.WebUI\\Views\\Menu\\Favourites.cshtml",
+              "RelativeToolTip": "Restaurant.WebUI\\Views\\Menu\\Favourites.cshtml",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAYwFMAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-31T14:27:29.324Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\ITI - .NET\\MVC\\Final Project\\Restaurant\\Restaurant.WebUI\\Views\\Menu\\Index.cshtml",
+              "RelativeDocumentMoniker": "Restaurant.WebUI\\Views\\Menu\\Index.cshtml",
+              "ToolTip": "E:\\ITI - .NET\\MVC\\Final Project\\Restaurant\\Restaurant.WebUI\\Views\\Menu\\Index.cshtml*",
+              "RelativeToolTip": "Restaurant.WebUI\\Views\\Menu\\Index.cshtml*",
+              "ViewState": "AgIAAEwAAAAAoAuGEHEQwLsAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-31T10:18:12.208Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\ITI - .NET\\MVC\\Final Project\\Restaurant\\Restaurant.WebUI\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Restaurant.WebUI\\Views\\Home\\Index.cshtml",
+              "ToolTip": "E:\\ITI - .NET\\MVC\\Final Project\\Restaurant\\Restaurant.WebUI\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Restaurant.WebUI\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAABQAAAAAAICXOw4wwCQAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-31T00:13:55.508Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

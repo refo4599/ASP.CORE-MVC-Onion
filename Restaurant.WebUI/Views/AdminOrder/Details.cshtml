@@ -1,0 +1,79 @@
+﻿@model Restaurant.Models.Order
+@{
+    ViewData["Title"] = "Manage Users";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container py-4">
+    <h2 class="text-primary fw-bold mb-4">📦 Order Details - #@Model.Id</h2>
+
+  
+    <div class="card mb-4 shadow-sm border-0">
+        <div class="card-body">
+            <h5 class="card-title text-secondary mb-3">🧾 General Info</h5>
+            <p><strong>User ID:</strong> @Model.UserId</p>
+            <p>
+                <strong>Status:</strong>
+                <span class="badge @(Model.Status == "Completed" ? "bg-success" :
+                                                                                Model.Status == "Cancelled" ? "bg-danger" :
+                                                                                "bg-warning")">@Model.Status</span>
+            </p>
+            <p><strong>Created:</strong> @Model.CreatedAt.ToString("f")</p>
+            <p>
+                <strong>Total Price:</strong>
+                <span class="fw-bold text-success">@Model.TotalPrice.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("ar-EG"))</span>
+            </p>
+        </div>
+    </div>
+
+    
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h5 class="card-title text-secondary mb-3">🍔 Order Items</h5>
+            <table class="table table-bordered align-middle text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Product</th>
+                        <th>Image</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@item.Product?.Name</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.Product?.ImageUrl))
+                                {
+                                    <img src="@item.Product.ImageUrl" style="width:60px;height:60px;object-fit:cover;border-radius:8px;" />
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No image</span>
+                                }
+                            </td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Price.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("ar-EG"))</td>
+                            <td class="text-success fw-bold">@((item.Quantity * item.Price).ToString("C", System.Globalization.CultureInfo.GetCultureInfo("ar-EG")))</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot class="table-light">
+                    <tr>
+                        <td colspan="4" class="text-end fw-bold">Total:</td>
+                        <td class="fw-bold text-primary">@Model.Items.Sum(i => i.Price * i.Quantity).ToString("C", System.Globalization.CultureInfo.GetCultureInfo("ar-EG"))</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="/AdminOrder/Index" class="btn btn-secondary px-4">
+            <i class="bi bi-arrow-left"></i> Back to Orders
+        </a>
+    </div>
+</div>

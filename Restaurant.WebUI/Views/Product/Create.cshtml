@@ -1,0 +1,71 @@
+﻿@model Restaurant.Application.ViewModels.ProductVM
+
+@{
+    ViewData["Title"] = "Create Product";
+}
+
+<!-- Container ثابت فوق Footer -->
+<div class="container mt-3" style="max-width:400px; position:relative; z-index:1000;">
+    <h2 class="text-center mb-3" style="font-size:1.3rem;">Create Product</h2>
+
+    <form asp-action="Create" asp-controller="Product" enctype="multipart/form-data" method="post"
+          class="p-2 border rounded shadow-sm" style="background-color:#f9f9f9; position:relative; z-index:1000;">
+
+        <div asp-validation-summary="All" class="text-danger mb-1" style="font-size:0.75rem;"></div>
+
+        <div class="mb-1">
+            <label asp-for="Name" class="form-label small"></label>
+            <input asp-for="Name" class="form-control form-control-sm" style="font-size:0.75rem; padding:0.2rem 0.4rem;" />
+            <span asp-validation-for="Name" class="text-danger small" style="font-size:0.7rem;"></span>
+        </div>
+
+        <div class="mb-1">
+            <label asp-for="Price" class="form-label small"></label>
+            <input asp-for="Price" class="form-control form-control-sm" style="font-size:0.75rem; padding:0.2rem 0.4rem;" />
+            <span asp-validation-for="Price" class="text-danger small" style="font-size:0.7rem;"></span>
+        </div>
+
+        <div class="mb-1">
+            <label asp-for="Quantity" class="form-label small"></label>
+            <input asp-for="Quantity" class="form-control form-control-sm" style="font-size:0.75rem; padding:0.2rem 0.4rem;" />
+            <span asp-validation-for="Quantity" class="text-danger small" style="font-size:0.7rem;"></span>
+        </div>
+
+        <div class="mb-1">
+            <label asp-for="InStock" class="form-label small"></label>
+            <input asp-for="InStock" class="form-control form-control-sm" style="font-size:0.75rem; padding:0.2rem 0.4rem;" />
+            <span asp-validation-for="InStock" class="text-danger small" style="font-size:0.7rem;"></span>
+        </div>
+
+        <div class="mb-1">
+            <label asp-for="Description" class="form-label small"></label>
+            <textarea asp-for="Description" class="form-control form-control-sm" style="font-size:0.75rem; padding:0.2rem 0.4rem;"></textarea>
+            <span asp-validation-for="Description" class="text-danger small" style="font-size:0.7rem;"></span>
+        </div>
+
+        <div class="mb-1">
+            <label asp-for="CategoryId" class="form-label small"></label>
+            <select asp-for="CategoryId" asp-items="Model.Categories" class="form-select form-select-sm" style="font-size:0.75rem; padding:0.2rem 0.4rem;">
+                <option value="">-- Select Category --</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger small" style="font-size:0.7rem;"></span>
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="Image" class="form-label small"></label>
+            <input asp-for="Image" type="file" class="form-control form-control-sm" style="font-size:0.75rem; padding:0.2rem 0.4rem;" />
+            <span asp-validation-for="Image" class="text-danger small" style="font-size:0.7rem;"></span>
+        </div>
+
+        <!-- رفع الأزرار فوق Footer تماماً -->
+        <div class="d-flex justify-content-between mt-3 mb-3" style="position:relative; z-index:1001;">
+            <button type="submit" class="btn btn-primary btn-sm" style="min-width:100px; font-size:0.8rem;">
+                <i class="bi bi-plus-lg me-1"></i> Save
+            </button>
+
+            <a asp-action="Index" asp-controller="Product" class="btn btn-secondary btn-sm" style="min-width:100px; font-size:0.8rem;">
+                <i class="bi bi-arrow-left me-1"></i> Back
+            </a>
+        </div>
+    </form>
+</div>

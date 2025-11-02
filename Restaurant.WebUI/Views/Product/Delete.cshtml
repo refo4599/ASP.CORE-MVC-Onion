@@ -1,0 +1,30 @@
+﻿@model Restaurant.Models.Product
+
+@{
+    ViewData["Title"] = "Delete Product";
+}
+
+<div class="container mt-4" style="max-width:500px;">
+    <h2 class="text-center mb-4 text-danger">Delete Product</h2>
+
+    <div class="card p-3 shadow-sm">
+        <div class="text-center mb-3">
+            <img src="@Model.ImageUrl" alt="@Model.Name" class="img-thumbnail" style="height:150px; object-fit:cover;" />
+        </div>
+
+        <h5 class="text-center">@Model.Name</h5>
+        <p class="text-center mb-1">Price: @Model.Price.ToString("C")</p>
+        <p class="text-center mb-1">Quantity: @Model.Quantity</p>
+        <p class="text-center mb-3">In Stock: @Model.InStock</p>
+
+        <p class="text-center text-danger">Are you sure you want to delete this product?</p>
+
+        <form asp-action="DeleteConfirmed" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-danger btn-sm">Yes, Delete</button>
+                <a asp-action="Index" class="btn btn-secondary btn-sm">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

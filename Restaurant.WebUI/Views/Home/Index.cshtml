@@ -1,0 +1,303 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_UserLayout";
+    var happyHourProducts = ViewBag.HappyHourProducts as List<Restaurant.Application.ViewModels.ProductMenuVM>;
+    bool isHappyHour = ViewBag.IsHappyHour ?? false;
+}
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(270deg, #ff6ec4, #7873f5, #4ade80, #facc15);
+        background-size: 800% 800%;
+        animation: gradientMove 15s ease infinite;
+        color: #fff;
+    }
+
+    @@keyframes gradientMove {
+        0%
+
+    {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+
+    }
+
+   
+    .top-banner {
+        background:black ; /* لون ثابت جذاب */
+        color: #fff;
+        text-align: center;
+        padding: 15px 20px;
+        font-size: 1.3rem;
+        font-weight: 700;
+        border-radius: 0 0 20px 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        position: relative;
+        z-index: 1000;
+    }
+
+        .top-banner strong {
+            font-size: 1.4rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        }
+
+    .hero-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 50px 0;
+    }
+
+    .hero-section {
+        position: relative;
+        width: 80%;
+        height: 60vh;
+        border-radius: 25px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero-slider img {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+        border-radius: 25px;
+    }
+
+        .hero-slider img.active {
+            opacity: 1;
+        }
+
+    .hero-overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 25px;
+        z-index: 1;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        color: #fff;
+        text-align: center;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 0 20px;
+    }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            color: #f1f1f1;
+            margin-bottom: 20px;
+        }
+
+    .btn-shop {
+        background: linear-gradient(45deg, #ff5722, #ff9800);
+        color: white;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 1.3rem;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+        .btn-shop:hover {
+            transform: scale(1.05);
+            background: linear-gradient(45deg, #ff7043, #ffb74d);
+        }
+
+    /* Promo Section */
+    .promo-section {
+        background: #fff;
+        padding: 40px 20px;
+        text-align: center;
+        border-radius: 20px;
+        width: 80%;
+        margin: 50px auto;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+        .promo-section h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 15px;
+        }
+
+        .promo-section p {
+            color: #555;
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+        }
+
+    .discount-box {
+        background: linear-gradient(45deg, #ff1744, #2979ff);
+        color: #fff;
+        border-radius: 15px;
+        display: inline-block;
+        padding: 12px 22px;
+        font-size: 1.8rem;
+        font-weight: 600;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
+    }
+
+    /* Happy Hour Section */
+    .happy-hour {
+        width: 85%;
+        margin: 30px auto 70px auto;
+        background: black;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+        .happy-hour h2 {
+            font-size: 2rem;
+            color: #ff5722;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+    .happy-hour-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+    }
+
+    .happy-item {
+        background: #fdfdfd;
+        border-radius: 15px;
+        padding: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .happy-item:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .happy-item img {
+            width: 100%;
+            height: 180px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+
+            .happy-item img:hover {
+                transform: scale(1.05);
+            }
+
+        .happy-item h5 {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+    .price {
+        font-size: 1rem;
+        color: #444;
+    }
+
+    .discount {
+        color: #ff1744;
+        font-weight: 700;
+    }
+</style>
+
+<div class="top-banner">
+    🎉 <strong>خصومات الساعة السعيدة!</strong> من 9 صباحاً إلى 12 ظهراً + خصم 10% على الطلبات فوق 100 جنيه 🎁
+</div>
+
+<div class="hero-container">
+    <div class="hero-section">
+        <div class="hero-slider">
+            <img src="~/images/res10.jpg" class="active" alt="">
+            <img src="~/images/res12.jpg" alt="">
+            <img src="~/images/res14.jpg" alt="">
+            <img src="~/images/res19.jpg" alt="">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>🍽️ مرحباً بك في مطعمنا الفاخر</h1>
+            <p>✨ خصومات مذهلة في أوقات السعادة، وأي طلب فوق 100 جنيه عليه خصم فوري!</p>
+            <a asp-controller="Menu" asp-action="Index" class="btn-shop">تسوق الآن</a>
+        </div>
+    </div>
+</div>
+
+<div class="promo-section">
+    <h2>💸 عروض خاصة لعملائنا</h2>
+    <p>أي طلب بقيمة أكثر من <strong>100 جنيه</strong> يحصل على خصم فوري!</p>
+    <div class="discount-box">
+        خصم 15% على الطلبات الكبيرة — لا تفوت الفرصة 🎁
+    </div>
+    <div>
+        <a asp-controller="Menu" asp-action="Index" class="btn-shop">اطلب الآن</a>
+    </div>
+</div>
+
+@if (isHappyHour && happyHourProducts != null && happyHourProducts.Any())
+{
+    <div class="happy-hour">
+        <h2>⏰ عروض الساعة السعيدة</h2>
+        <div class="happy-hour-grid">
+            @foreach (var item in happyHourProducts)
+            {
+                <div class="happy-item">
+                    <img src="@item.ImageUrl" alt="@item.Name" onerror="this.onerror=null; this.src='images/placeholder.png';" />
+                    <h5>@item.Name</h5>
+                    <p class="price">
+                        <span style="text-decoration:line-through;">@item.Price جنيه</span><br />
+                        <span class="discount">@item.DiscountPrice جنيه</span>
+                    </p>
+                    <a asp-controller="Menu" asp-action="Index" class="btn-shop">اطلب الآن</a>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        const slides = document.querySelectorAll('.hero-slider img');
+        let index = 0;
+        setInterval(() => {
+            slides[index].classList.remove('active');
+            index = (index + 1) % slides.length;
+            slides[index].classList.add('active');
+        }, 4000);
+    </script>
+}

@@ -1,0 +1,228 @@
+﻿@model Restaurant.Application.ViewModels.ProductVM
+@{
+    ViewData["Title"] = "Edit Product";
+    Layout = null;
+}
+
+<style>
+   
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Poppins', sans-serif;
+        color: #fff;
+        background: linear-gradient(120deg, #4b6cb7, #182848);
+        animation: colorShift 10s ease-in-out infinite;
+    }
+
+    @@keyframes colorShift {
+        0% {
+            background: linear-gradient(120deg, #4b6cb7, #182848);
+        }
+
+        25% {
+            background: linear-gradient(120deg, #355c7d, #6c5b7b);
+        }
+
+        50% {
+            background: linear-gradient(120deg, #283e51, #485563);
+        }
+
+        75% {
+            background: linear-gradient(120deg, #2c3e50, #4ca1af);
+        }
+
+        100% {
+            background: linear-gradient(120deg, #4b6cb7, #182848);
+        }
+    }
+
+    
+    .edit-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding: 15px;
+    }
+
+    .product-card {
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+        padding: 25px 30px;
+        width: 100%;
+        max-width: 380px;
+        backdrop-filter: blur(15px);
+    }
+
+        .product-card h4 {
+            color: #ffca28;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.3rem;
+            letter-spacing: 0.5px;
+        }
+
+    label.form-label {
+        color: #fff;
+        font-weight: 500;
+        margin-bottom: 6px;
+        display: block;
+        font-size: 0.9rem;
+    }
+
+   
+    .form-control,
+    .form-select {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid transparent;
+        border-radius: 8px;
+        padding: 8px 10px;
+        color: #222;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: all 0.3s ease-in-out;
+        outline: none;
+    }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #ffca28;
+            box-shadow: 0 0 8px rgba(255, 193, 7, 0.6);
+        }
+
+    select.form-select option {
+        background-color: #fff;
+        color: #000;
+    }
+
+    textarea.form-control {
+        resize: none;
+    }
+
+    img.preview {
+        display: block;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        max-width: 90px;
+    }
+
+    .btn {
+        border: none;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-warning {
+        background: linear-gradient(90deg, #ffca28, #fbc02d);
+        color: #000;
+        box-shadow: 0 3px 8px rgba(255, 193, 7, 0.4);
+    }
+
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(255, 193, 7, 0.6);
+        }
+
+    .btn-outline-secondary {
+        background: rgba(255, 255, 255, 0.25);
+        color: #fff;
+    }
+
+        .btn-outline-secondary:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+    .d-flex {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+    }
+
+    .text-danger {
+        color: #ffb3b3 !important;
+        font-size: 0.8rem;
+    }
+</style>
+
+<div class="edit-wrapper">
+    <div class="product-card">
+        <h4>✏️ Edit Product</h4>
+
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+
+            <div asp-validation-summary="All" class="text-danger mb-3 small"></div>
+
+            <div class="mb-2">
+                <label asp-for="Name" class="form-label">Product Name</label>
+                <input asp-for="Name" class="form-control" placeholder="Enter name..." />
+                <span asp-validation-for="Name" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-2">
+                <label asp-for="Price" class="form-label">Price</label>
+                <input asp-for="Price" class="form-control" placeholder="Enter price..." />
+                <span asp-validation-for="Price" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-2">
+                <label asp-for="Quantity" class="form-label">Quantity</label>
+                <input asp-for="Quantity" type="number" min="0" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-2">
+                <label asp-for="InStock" class="form-label">In Stock</label>
+                <input asp-for="InStock" type="number" min="0" class="form-control" />
+                <span asp-validation-for="InStock" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-2">
+                <label asp-for="CategoryId" class="form-label">Category</label>
+                <select asp-for="CategoryId" class="form-select" asp-items="Model.Categories">
+                    <option value="">-- Select Category --</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-2">
+                <label asp-for="Description" class="form-label">Description</label>
+                <textarea asp-for="Description" class="form-control" rows="2"></textarea>
+                <span asp-validation-for="Description" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label">Existing Image</label><br />
+                @if (!string.IsNullOrEmpty(Model.ExistingImageUrl))
+                {
+                    <img src="@Model.ExistingImageUrl" alt="Product Image" class="preview" />
+                }
+            </div>
+
+            <div class="mb-2">
+                <label asp-for="Image" class="form-label">Change Image</label>
+                <input asp-for="Image" type="file" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger small"></span>
+            </div>
+
+            <div class="d-flex">
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+                <button type="submit" class="btn btn-warning">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

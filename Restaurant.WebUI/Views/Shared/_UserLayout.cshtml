@@ -1,0 +1,188 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Restaurant.Models.AppUser> SignInManager
+@inject UserManager<Restaurant.Models.AppUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - User Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: margin-left 0.3s;
+        }
+
+        .sidebar {
+            width: 220px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #343a40;
+            padding-top: 60px;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+            .sidebar.closed {
+                transform: translateX(-100%);
+            }
+
+            .sidebar a {
+                color: #fff;
+                display: block;
+                padding: 10px 15px;
+                text-decoration: none;
+            }
+
+                .sidebar a:hover, .sidebar a.active {
+                    background-color: #495057;
+                    border-radius: 5px;
+                }
+
+        .header {
+            height: 60px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #212529;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1100;
+            justify-content: space-between;
+        }
+
+        .header-nav a {
+            color: #fff;
+            margin-left: 15px;
+            text-decoration: none;
+        }
+
+            .header-nav a.active {
+                font-weight: bold;
+                text-decoration: underline;
+            }
+
+        .content {
+            flex: 1;
+            margin-left: 0;
+            margin-top: 60px;
+            padding: 20px;
+            padding-bottom: 100px;
+            box-sizing: border-box;
+            transition: margin-left 0.3s;
+        }
+
+            .content.open {
+                margin-left: 220px;
+            }
+
+        .footer {
+            background: #212529;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            margin-left: 0;
+            transition: margin-left 0.3s;
+        }
+
+            .footer.open {
+                margin-left: 220px;
+            }
+
+        .toggle-sidebar-btn {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar closed">
+        <a asp-controller="Home" asp-action="Index" class="@((ViewContext.RouteData.Values["controller"]?.ToString() == "Home") ? "active" : "")">
+            🏠 Home
+        </a>
+        <a asp-controller="Menu" asp-action="Index" class="@((ViewContext.RouteData.Values["controller"]?.ToString() == "Menu") ? "active" : "")">
+            🍽️ Menu
+        </a>
+        <a asp-controller="Cart" asp-action="Index" class="@((ViewContext.RouteData.Values["controller"]?.ToString() == "Cart") ? "active" : "")">
+            🛒 Cart
+        </a>
+        <a asp-controller="UserOrder" asp-action="MyOrders" class="@((ViewContext.RouteData.Values["controller"]?.ToString() == "UserOrder") ? "active" : "")">
+            📦 My Orders
+        </a>
+        <a asp-controller="Menu" asp-action="Favourites" class="@((ViewContext.RouteData.Values["controller"]?.ToString() == "Menu") ? "active" : "")">
+            🍽️ Favourites
+        </a>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="d-flex align-items-center">
+            <span id="toggleSidebar" class="toggle-sidebar-btn me-3"><i class="bi bi-list"></i></span>
+            <h5 class="m-0">User Dashboard</h5>
+        </div>
+        <div class="header-nav">
+            <a asp-controller="Home" asp-action="Index" class="@((ViewContext.RouteData.Values["controller"]?.ToString() == "Home") ? "active" : "")">🏠 Home</a>
+            <a asp-controller="Menu" asp-action="Index" class="@((ViewContext.RouteData.Values["controller"]?.ToString() == "Menu") ? "active" : "")">🍽️ Menu</a>
+            <a asp-controller="Cart" asp-action="Index" class="@((ViewContext.RouteData.Values["controller"]?.ToString() == "Cart") ? "active" : "")">🛒 Cart</a>
+            <a asp-controller="UserOrder" asp-action="MyOrders" class="@((ViewContext.RouteData.Values["controller"]?.ToString() == "UserOrder") ? "active" : "")">📦 My Orders</a>
+            <a asp-controller="Menu" asp-action="Favourites" class="@((ViewContext.RouteData.Values["controller"]?.ToString() == "Menu") ? "active" : "")">🍽️ Favourites</a>
+
+
+            <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline ms-3">
+                <button class="btn btn-outline-light btn-sm">Logout</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div id="content" class="content">
+        @RenderBody()
+    </div>
+
+    <!-- Footer -->
+    <div id="footer" class="footer">
+        &copy; @DateTime.Now.Year - Restaurant User Dashboard (Ahmed Refaat)
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const toggleBtn = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+        const footer = document.getElementById('footer');
+
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('closed');
+            content.classList.toggle('open');
+            footer.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.sidebar a, .header-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.add('closed');
+                content.classList.remove('open');
+                footer.classList.remove('open');
+            });
+        });
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,48 @@
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Models\bin\Debug\net9.0\Restaurant.Models.deps.json
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Models\bin\Debug\net9.0\Restaurant.Models.dll
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Models\bin\Debug\net9.0\Restaurant.Models.pdb
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.csproj.AssemblyReference.cache
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.AssemblyInfoInputs.cache
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.AssemblyInfo.cs
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.csproj.CoreCompileInputs.cache
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.dll
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Models\obj\Debug\net9.0\refint\Restaurant.Models.dll
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.pdb
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Models\obj\Debug\net9.0\ref\Restaurant.Models.dll
+D:\Restaurant\Restaurant.Models\bin\Debug\net9.0\Restaurant.Models.deps.json
+D:\Restaurant\Restaurant.Models\bin\Debug\net9.0\Restaurant.Models.dll
+D:\Restaurant\Restaurant.Models\bin\Debug\net9.0\Restaurant.Models.pdb
+D:\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.csproj.AssemblyReference.cache
+D:\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.GeneratedMSBuildEditorConfig.editorconfig
+D:\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.AssemblyInfoInputs.cache
+D:\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.AssemblyInfo.cs
+D:\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.csproj.CoreCompileInputs.cache
+D:\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.dll
+D:\Restaurant\Restaurant.Models\obj\Debug\net9.0\refint\Restaurant.Models.dll
+D:\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.pdb
+D:\Restaurant\Restaurant.Models\obj\Debug\net9.0\ref\Restaurant.Models.dll
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Models\bin\Debug\net9.0\Restaurant.Models.deps.json
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Models\bin\Debug\net9.0\Restaurant.Models.dll
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Models\bin\Debug\net9.0\Restaurant.Models.pdb
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.csproj.AssemblyReference.cache
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.AssemblyInfoInputs.cache
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.AssemblyInfo.cs
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.csproj.CoreCompileInputs.cache
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.dll
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Models\obj\Debug\net9.0\refint\Restaurant.Models.dll
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.pdb
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Models\obj\Debug\net9.0\ref\Restaurant.Models.dll
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Models\bin\Debug\net9.0\Restaurant.Models.deps.json
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Models\bin\Debug\net9.0\Restaurant.Models.dll
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Models\bin\Debug\net9.0\Restaurant.Models.pdb
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.csproj.AssemblyReference.cache
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.GeneratedMSBuildEditorConfig.editorconfig
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.AssemblyInfoInputs.cache
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.AssemblyInfo.cs
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.csproj.CoreCompileInputs.cache
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.dll
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Models\obj\Debug\net9.0\refint\Restaurant.Models.dll
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Models\obj\Debug\net9.0\Restaurant.Models.pdb
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Models\obj\Debug\net9.0\ref\Restaurant.Models.dll

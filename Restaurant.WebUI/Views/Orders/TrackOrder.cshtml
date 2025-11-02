@@ -1,0 +1,38 @@
+﻿@model Restaurant.Models.Order
+
+<div class="container py-4">
+    <h2 class="text-primary fw-bold mb-3">📦 Order #@Model.Id Status</h2>
+
+    <p><strong>Status:</strong>
+        <span class="badge bg-@(Model.Status == "Completed" ? "success" : Model.Status == "Cancelled" ? "danger" : "warning")">
+            @Model.Status
+        </span>
+    </p>
+
+    <p><strong>Type:</strong> @Model.OrderType</p>
+    <p><strong>Total:</strong> $@Model.TotalPrice.ToString("0.00")</p>
+
+    <hr />
+
+    <h5>Items:</h5>
+    <ul>
+        @foreach (var item in Model.Items)
+        {
+            <li>@item.Product?.Name × @item.Quantity — $@item.Price.ToString("0.00")</li>
+        }
+    </ul>
+
+    <div class="mt-3">
+        @if (Model.Status == "Cancelled" || Model.Status == "Completed")
+        {
+            <button class="btn btn-outline-danger" disabled>Cancel Order</button>
+        }
+        else
+        {
+            <a asp-action="CancelOrder" asp-route-id="@Model.Id" class="btn btn-outline-danger">
+                Cancel Order
+            </a>
+        }
+    </div>
+
+</div>

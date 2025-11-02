@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Daily Orders";
+}
+
+<h2>Daily Orders</h2>
+
+<table class="table table-bordered mt-3" id="daily-orders-table">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Orders Today</th>
+        </tr>
+    </thead>
+    <tbody>
+       
+    </tbody>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function loadOrders() {
+        $.get("/AdminDailyProductOrders/GetTodayOrders", function (data) {
+            var tbody = $("#daily-orders-table tbody");
+            tbody.empty();
+
+            if (data.length === 0) {
+                tbody.append('<tr><td colspan="2">No orders today</td></tr>');
+            } else {
+                data.forEach(function (item) {
+                    tbody.append('<tr><td>' + item.productName + '</td><td>' + item.count + '</td></tr>');
+                });
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        loadOrders(); 
+        setInterval(loadOrders, 5000); 
+    });
+</script>

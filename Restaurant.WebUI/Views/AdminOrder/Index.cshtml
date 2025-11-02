@@ -1,0 +1,205 @@
+﻿@model IEnumerable<Restaurant.Models.Order>
+@{
+    ViewData["Title"] = "Manage Orders";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+   
+    body {
+        background: linear-gradient(120deg, #4b6cb7, #182848);
+        animation: colorShift 10s ease-in-out infinite;
+        background-attachment: fixed;
+        background-size: 400% 400%;
+        color: #fff;
+    }
+
+    @@keyframes colorShift {
+        0% {
+            background: linear-gradient(120deg, #4b6cb7, #182848);
+        }
+
+        25% {
+            background: linear-gradient(120deg, #355c7d, #6c5b7b);
+        }
+
+        50% {
+            background: linear-gradient(120deg, #283e51, #485563);
+        }
+
+        75% {
+            background: linear-gradient(120deg, #2c3e50, #4ca1af);
+        }
+
+        100% {
+            background: linear-gradient(120deg, #4b6cb7, #182848);
+        }
+    }
+
+    
+    .container {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(12px);
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        margin-top: 40px;
+    }
+
+    h2 {
+        color: #fff !important;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+        text-align: center;
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
+
+    table {
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+    }
+
+    thead.table-dark {
+        background-color: #000 !important;
+        color: #fff !important;
+    }
+
+    tbody tr:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .form-select {
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #000;
+        border: none;
+        border-radius: 6px;
+    }
+
+        .form-select:focus {
+            box-shadow: 0 0 6px #ffc107;
+        }
+
+    
+    .btn-info {
+        background: black;
+        color: #fff;
+        border: 1px solid #fff;
+        transition: all 0.3s ease;
+    }
+
+        .btn-info:hover {
+            background: #fff;
+            color: #000;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+        }
+</style>
+
+<div class="container py-4">
+    <h2>📬 Orders</h2>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var o in Model)
+            {
+                <tr data-id="@o.Id">
+                    <td>@o.Id</td>
+                    <td>@o.OrderType</td>
+                    <td>
+                        <span class="badge @(o.Status == "Pending" ? "bg-warning" :
+                                                                             o.Status == "Preparing" ? "bg-info" :
+                                                                             o.Status == "Ready" ? "bg-primary" :
+                                                                             o.Status == "Completed" ? "bg-success" :
+                                                                             "bg-danger") status-badge">
+                        @o.Status
+                    </span>
+                    <select class="form-select form-select-sm status-dropdown mt-1" style="width:auto; display:inline-block;" data-id="@o.Id">
+                        @{
+                                var statuses = new[] { "Pending", "Preparing", "Ready", "Completed", "Cancelled" };
+                            }
+                            @foreach (var s in statuses)
+                            {
+                                if (o.Status == s)
+                                {
+                                    <option value="@s" selected="selected">@s</option>
+                                }
+                                else
+                                {
+                                    <option value="@s">@s</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                    <td>@o.CreatedAt.ToString("g")</td>
+                    <td>
+                        <a href="/AdminOrder/Details/@o.Id" class="btn btn-info btn-sm">
+                            <i class="bi bi-eye"></i> View
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        const statusColors = {
+            "Pending": "bg-warning",
+            "Preparing": "bg-info",
+            "Ready": "bg-primary",
+            "Completed": "bg-success",
+            "Cancelled": "bg-danger"
+        };
+
+        document.querySelectorAll('.status-dropdown').forEach(drop => {
+            drop.addEventListener('change', async (e) => {
+                const select = e.target;
+                const row = select.closest('tr');
+                const id = row.dataset.id;
+                const status = select.value;
+
+                const badge = row.querySelector('.status-badge');
+
+                badge.textContent = status;
+                badge.className = 'badge status-badge ' + (statusColors[status] || 'bg-secondary');
+
+                try {
+                    const res = await fetch('/AdminOrder/ChangeStatus', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: `id=${id}&status=${status}`
+                    });
+
+                    const data = await res.json();
+
+                    if (!data.success) {
+                        throw new Error(data.message);
+                    }
+
+                    if (data.deleted) {
+                        row.remove();
+                    }
+
+                } catch (err) {
+                    alert(err.message);
+
+                    const prev = select.querySelector('option[selected]')?.value || "Pending";
+                    select.value = prev;
+                    badge.textContent = prev;
+                    badge.className = 'badge status-badge ' + (statusColors[prev] || 'bg-secondary');
+                }
+            });
+        });
+    </script>
+}

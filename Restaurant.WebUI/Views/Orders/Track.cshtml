@@ -1,0 +1,46 @@
+﻿@model Restaurant.Models.Order
+
+<div class="container py-4">
+    <h2 class="text-primary fw-bold mb-4">📦 Track Your Order</h2>
+
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body">
+            <h5 class="fw-bold">Order ID: #@Model.Id</h5>
+            <p><strong>Date:</strong> @Model.CreatedAt.ToString("g")</p>
+            <p><strong>Order Type:</strong> @Model.OrderType</p>
+            <p><strong>Total:</strong> $@Model.TotalPrice.ToString("0.00")</p>
+
+            <div class="progress mt-4" style="height: 25px;">
+                @{
+                    int progress = Model.Status switch
+                    {
+                        "Pending" => 25,
+                        "Preparing" => 50,
+                        "OnTheWay" => 75,
+                        "Completed" => 100,
+                        _ => 0
+                    };
+                }
+                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+                     style="width:@progress%">
+                    @Model.Status
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h5 class="fw-bold mb-2">Order Items:</h5>
+                <ul class="list-group">
+                    @foreach (var item in Model.Items)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>@item.Product?.Name x @item.Quantity</span>
+                            <span>$@(item.Price* item.Quantity).ToString("0.00")</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <a asp-action="MyOrders" class="btn btn-outline-primary">⬅ Back to My Orders</a>
+</div>

@@ -1,0 +1,257 @@
+﻿@model Restaurant.Application.ViewModels.RegisterVM
+@{
+    Layout = null;
+    ViewData["Title"] = "Register";
+}
+@if (TempData["ToastMessage"] != null)
+{
+    <div id="toast" class="toast-message">
+        @TempData["ToastMessage"]
+    </div>
+
+    <script>
+        const toast = document.getElementById("toast");
+        if (toast) {
+            toast.style.display = "block";
+            setTimeout(() => toast.style.opacity = "1", 100); // fade-in
+
+            setTimeout(() => {
+                toast.style.opacity = "0";
+                setTimeout(() => toast.style.display = "none", 500);
+            }, 4000); // hide after 4s
+        }
+    </script>
+
+    <style>
+        .toast-message {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(255, 0, 0, 0.85);
+            color: #fff;
+            padding: 14px 22px;
+            border-radius: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 9999;
+        }
+    </style>
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(120deg, #4b6cb7, #182848);
+            background-size: 400% 400%;
+            animation: colorShift 10s ease-in-out infinite;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+     
+        @@keyframes colorShift {
+            0% {
+                background: linear-gradient(120deg, #4b6cb7, #182848);
+            }
+
+            25% {
+                background: linear-gradient(120deg, #355c7d, #6c5b7b);
+            }
+
+            50% {
+                background: linear-gradient(120deg, #283e51, #485563);
+            }
+
+            75% {
+                background: linear-gradient(120deg, #2c3e50, #4ca1af);
+            }
+
+            100% {
+                background: linear-gradient(120deg, #4b6cb7, #182848);
+            }
+        }
+
+        /*   Overlay   */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 1;
+        }
+
+        .register-box {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            border-radius: 18px;
+            padding: 40px 35px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            color: #fff;
+            animation: fadeIn 1.2s ease forwards;
+        }
+
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .register-box h2 {
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .form-control {
+            width: 100%;
+            border: none;
+            outline: none;
+            padding: 12px 15px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+
+            .form-control::placeholder {
+                color: rgba(255, 255, 255, 0.75);
+            }
+
+            .form-control:focus {
+                background: rgba(255, 255, 255, 0.3);
+                box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+            }
+
+        /*   Register */
+        .btn-register {
+            width: 100%;
+            background: linear-gradient(135deg, #000000, #ffffff);
+            color: white;
+            font-size :20px;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+        }
+
+            .btn-register:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            }
+
+        .login-link {
+            color: #fff;
+            text-align: center;
+            display: block;
+            margin-top: 15px;
+            text-decoration: none;
+        }
+
+            .login-link:hover {
+                color: #ff1744;
+            }
+
+        .text-danger {
+            font-size: 0.9rem;
+        }
+
+        .client-toast {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #ff1744, #d50000);
+            color: #fff;
+            padding: 14px 22px;
+            border-radius: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-box">
+        <h2>Create Account</h2>
+
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <label asp-for="FullName"></label>
+            <input asp-for="FullName" class="form-control" placeholder="Full Name" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" placeholder="Email Address" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+
+            <label asp-for="Phone"></label>
+            <input asp-for="Phone" class="form-control" placeholder="Phone Number" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+
+            <label asp-for="Password"></label>
+            <input asp-for="Password" type="password" class="form-control" placeholder="Password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+
+            <label asp-for="ConfirmPassword"></label>
+            <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm Password" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+            <button type="submit" class="btn-register">Register</button>
+
+            <a asp-action="Login" class="login-link">Already have an account? Login</a>
+        </form>
+    </div>
+
+</body>
+
+
+
+
+
+</html>

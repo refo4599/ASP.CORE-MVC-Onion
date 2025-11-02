@@ -1,0 +1,311 @@
+﻿@model List<Restaurant.Models.Order>
+
+@{
+    ViewData["Title"] = "طلباتي";
+    var statuses = new[] { "All", "Pending", "Preparing", "Ready", "Completed", "Cancelled" };
+    Layout = "_UserLayout";
+}
+
+<style>
+    .order-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+    }
+
+        .order-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+    .status-badge {
+        padding: 5px 12px;
+        border-radius: 10px;
+        font-weight: 600;
+        text-transform: capitalize;
+        transition: all 0.3s ease;
+    }
+
+    .status-pending {
+        background: #fff3cd;
+        color: #856404;
+    }
+
+    .status-preparing, .status-ready {
+        background: #cce5ff;
+        color: #004085;
+    }
+
+    .status-completed {
+        background: #d4edda;
+        color: #155724;
+    }
+
+    .status-cancelled {
+        background: #f8d7da;
+        color: #721c24;
+    }
+
+    .btn-action {
+        border-radius: 20px;
+        padding: 5px 15px;
+        font-size: 0.9rem;
+    }
+
+    .filter-bar {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+        justify-content: center;
+    }
+
+    .filter-btn {
+        border-radius: 20px;
+        padding: 6px 16px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid #ddd;
+        background: #f8f9fa;
+        transition: all 0.2s ease;
+    }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: #0d6efd;
+            color: #fff;
+            border-color: #0d6efd;
+        }
+
+    .order-details {
+        display: none;
+        margin-top: 15px;
+        border-top: 1px solid #ddd;
+        padding-top: 15px;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.5s ease, opacity 0.5s ease;
+        opacity: 0;
+    }
+
+        .order-details.show {
+            display: block;
+            max-height: 1000px;
+            opacity: 1;
+        }
+
+        .order-details img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .order-details.show img {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .order-details table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .order-details th, .order-details td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+    .summary-box {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 12px;
+        margin-top: 15px;
+    }
+
+        .summary-box div {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+
+        .summary-box .total {
+            font-weight: 700;
+            color: #198754;
+            font-size: 1rem;
+            border-top: 1px solid #ccc;
+            padding-top: 5px;
+            margin-top: 5px;
+        }
+</style>
+
+<div class="container py-4">
+    <h2 class="fw-bold text-primary mb-4 text-center">
+        <i class="bi bi-bag-check-fill me-2"></i> طلبــاتــي
+    </h2>
+
+    <div class="filter-bar mb-4">
+        @foreach (var s in statuses)
+        {
+            <span class="filter-btn @(ViewBag.SelectedStatus == s ? "active" : "")" data-status="@s">@s</span>
+        }
+    </div>
+
+    <div id="orders-container">
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info text-center shadow-sm">
+                😕 لا توجد طلبات حالياً.
+            </div>
+        }
+        else
+        {
+            foreach (var order in Model)
+            {
+                <div class="order-card" data-status="@order.Status">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="fw-bold">طلب رقم #@order.Id</h5>
+                        <span class="status-badge status-@order.Status.ToLower()">
+                            @order.Status
+                        </span>
+                    </div>
+
+                    <p class="mb-1"><strong>تاريخ الطلب:</strong> @order.CreatedAt.ToString("yyyy/MM/dd HH:mm")</p>
+                    <p class="mb-1"><strong>نوع الطلب:</strong> @order.OrderType</p>
+                    <p class="mb-2">
+                        <strong>إجمالي السعر:</strong>
+                        <span class="text-success fw-bold">
+                            @(order.TotalPrice.ToString("C0", System.Globalization.CultureInfo.GetCultureInfo("ar-EG")))
+                        </span>
+                    </p>
+
+                    <div class="d-flex justify-content-end gap-2 mt-3">
+                        <a href="/UserOrder/Track/@order.Id" class="btn btn-outline-primary btn-sm btn-action">
+                            <i class="bi bi-geo-alt"></i> تتبع الطلب
+                        </a>
+
+                        @if (order.Status != "Cancelled" && order.Status != "Completed")
+                        {
+                            <form method="post" asp-action="CancelOrder" asp-controller="UserOrder" asp-route-id="@order.Id" class="d-inline">
+                                <button type="submit" class="btn btn-outline-danger btn-sm btn-action">
+                                    <i class="bi bi-x-circle"></i> إلغاء الطلب
+                                </button>
+                            </form>
+                        }
+
+                        <button type="button" class="btn btn-outline-info btn-sm btn-action view-details">
+                            <i class="bi bi-eye"></i> عرض الطلب
+                        </button>
+                    </div>
+
+                    <div class="order-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>المنتج</th>
+                                    <th>الصورة</th>
+                                    <th>الكمية</th>
+                                    <th>السعر بعد الخصم</th>
+                                    <th>المجموع</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in order.Items)
+                                {
+                                    <tr>
+                                        <td>@item.Product?.Name</td>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(item.Product?.ImageUrl))
+                                            {
+                                                <img src="@item.Product.ImageUrl" />
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">No image</span>
+                                            }
+                                        </td>
+                                        <td>@item.Quantity</td>
+                                        <td>@item.Price.ToString("C0", System.Globalization.CultureInfo.GetCultureInfo("ar-EG"))</td>
+                                        <td>@((item.Quantity * item.Price).ToString("C0", System.Globalization.CultureInfo.GetCultureInfo("ar-EG")))</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <div class="summary-box">
+                            <div><span>المجموع الفرعي:</span> <span>@order.Subtotal.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("ar-EG"))</span></div>
+                            <div><span>الضريبة (8.5%):</span> <span>@order.TaxAmount.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("ar-EG"))</span></div>
+                            <div><span>الخصم:</span> <span class="text-danger">-@order.Discount.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("ar-EG"))</span></div>
+                            <div class="total"><span>الإجمالي النهائي:</span> <span>@order.TotalPrice.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("ar-EG"))</span></div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="/Menu/Index" class="btn btn-outline-secondary btn-action px-4">
+            <i class="bi bi-arrow-left"></i> Back
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const orderCards = document.querySelectorAll('.order-card');
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const status = btn.dataset.status;
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                orderCards.forEach(card => {
+                    if (status === "All" || card.dataset.status === status) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        document.querySelectorAll('.order-card').forEach(card => {
+            const details = card.querySelector('.order-details');
+            const viewBtn = card.querySelector('.view-details');
+
+            const toggleDetails = () => {
+                if (details.classList.contains('show')) {
+                    details.style.maxHeight = '0';
+                    details.style.opacity = '0';
+                    setTimeout(() => details.classList.remove('show'), 500);
+                } else {
+                    details.classList.add('show');
+                    details.style.maxHeight = details.scrollHeight + 'px';
+                    details.style.opacity = '1';
+                }
+            }
+
+            card.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A' && e.target.tagName !== 'FORM' && e.target.tagName !== 'INPUT') {
+                    toggleDetails();
+                }
+            });
+
+            viewBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleDetails();
+            });
+        });
+    </script>
+}

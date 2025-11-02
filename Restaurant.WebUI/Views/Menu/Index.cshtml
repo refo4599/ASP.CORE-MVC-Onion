@@ -1,0 +1,269 @@
+﻿@model IEnumerable<Restaurant.Application.ViewModels.CategoryWithProductsVM>
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery antiforgery
+
+@{
+    Layout = "_UserLayout";
+}
+<meta name="csrf-token" content="@antiforgery.GetAndStoreTokens(ViewContext.HttpContext).RequestToken">
+
+<!-- 🔹 الإعلان -->
+<div class="offer-banner text-center py-3">
+    🎉 <strong>عروض خاصة بمطعمنا!</strong> خصومات رائعة على مجموعة من الأطباق المميزة 🍔🍕
+    <br>
+    <span class="fw-bold">
+        ⏰ خصم يصل إلى 25% من الساعة 5 إلى 10 مساءً 🔥
+    </span>
+</div>
+
+<!-- 🔹 القائمة -->
+<div class="menu-container mt-4 mb-5">
+    <h2 class="text-center fw-bold display-6 mb-5 text-white">🍽️ Our Menu</h2>
+
+    @foreach (var category in Model)
+    {
+        <div class="text-center my-4">
+            <div class="category-title-box px-4 py-2 d-inline-block">
+                <h5 class="m-0 fw-bold category-title">@category.Name</h5>
+            </div>
+        </div>
+
+        <div class="category-row" data-category-id="@category.Id">
+            @foreach (var item in category.Products.Take(5))
+            {
+                <div class="product-card shadow-sm position-relative">
+                    <!-- زر القلب -->
+                    <button class="fav-btn position-absolute top-0 end-0 m-2 border-0 bg-transparent"
+                            data-id="@item.Id"
+                            style="z-index:10;">
+                        <i class="bi bi-heart fs-4 fav-icon"></i>
+                    </button>
+
+                    <img src="@item.ImageUrl" class="card-img-top product-image" alt="@item.Name" />
+
+                    <div class="card-body d-flex flex-column text-center p-3">
+                        <h6 class="fw-bold text-dark mb-1">@item.Name</h6>
+                        <p class="text-muted small mb-2">@item.Description</p>
+
+                        <div class="price mb-2">
+                            @if (item.DiscountPrice.HasValue)
+                            {
+                                <span class="text-decoration-line-through text-secondary small">@item.Price.ToString("C")</span>
+                                <br />
+                                <span class="text-danger fw-semibold">@item.DiscountPrice.Value.ToString("C") 🔥</span>
+                            }
+                            else
+                            {
+                                <span class="fw-semibold">@item.Price.ToString("C")</span>
+                            }
+                        </div>
+
+                        <p class="fw-bold small mb-2">
+                            @if (item.InStock > 0)
+                            {
+                                <span class="text-success">Available: @item.InStock</span>
+                            }
+                            else
+                            {
+                                <span class="text-danger">Out of stock</span>
+                            }
+                        </p>
+
+                        <button type="button"
+                                class="btn btn-gradient add-to-cart mt-auto w-100"
+                                data-id="@item.Id"
+                                @(item.InStock > 0 ? "" : "disabled")>
+                            <i class="bi bi-cart-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<!-- رسالة الأكشن -->
+<div id="action-message" class="action-message"></div>
+
+<!-- رسالة التوست للمفضلة -->
+<div id="fav-message"
+     style="position: fixed; top: 20px; right: 20px; z-index:9999; display:none;
+            padding:10px 20px; background-color:#333; color:#fff; border-radius:5px;">
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(function () {
+        var token = $('meta[name="csrf-token"]').attr('content');
+
+        // ✅ تحميل المفضلات من السيرفر عند بداية الصفحة
+        $.get('/Menu/GetFavourites', function (favourites) {
+            $(".fav-btn").each(function () {
+                var id = $(this).data("id");
+                if (favourites.includes(id)) {
+                    $(this).find(".fav-icon").removeClass("bi-heart").addClass("bi-heart-fill text-danger");
+                }
+            });
+        });
+
+        // ✅ Toggle Favourite
+        $(".fav-btn").click(function (e) {
+            e.preventDefault();
+            var btn = $(this);
+            var productId = btn.data("id");
+            var icon = btn.find(".fav-icon");
+
+            $.ajax({
+                url: '/Menu/ToggleFavourite',
+                type: 'POST',
+                headers: { 'RequestVerificationToken': token },
+                data: { id: productId },
+                success: function (response) {
+                    if (response.success) {
+                        if (response.added) {
+                            icon.removeClass("bi-heart").addClass("bi-heart-fill text-danger");
+                        } else {
+                            icon.removeClass("bi-heart-fill text-danger").addClass("bi-heart");
+                        }
+                        showFavMessage(response.message);
+                    }
+                },
+                error: function () {
+                    showFavMessage("⚠️ حدث خطأ في المفضلة.");
+                }
+            });
+        });
+
+        // ✅ رسالة صغيرة للمفضلة
+        function showFavMessage(message) {
+            var msgDiv = $("#fav-message");
+            msgDiv.text(message).fadeIn();
+            setTimeout(function () { msgDiv.fadeOut(); }, 2000);
+        }
+    });
+</script>
+>
+
+<style>
+    body {
+        background: linear-gradient(270deg, #ff6ec4, #7873f5, #4ade80, #facc15);
+        background-size: 800% 800%;
+        animation: gradientMove 15s ease infinite;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+    }
+
+    @@keyframes gradientMove {
+        0%
+
+    {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+
+    }
+
+    .offer-banner {
+        background-color: #000;
+        color: #fff;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    .category-title-box {
+        background: #000;
+        color: #fff;
+        border-radius: 12px;
+    }
+
+    .category-title {
+        color: #fff;
+    }
+
+    .category-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        gap: 10px;
+        margin: 40px auto;
+        width: 95%;
+    }
+
+    .product-card {
+        border: none;
+        border-radius: 16px;
+        overflow: hidden;
+        flex: 1 1 calc(22% - 20px);
+        max-width: calc(22% - 20px);
+        height: 380px;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background: #fff;
+        position: relative;
+    }
+
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+        }
+
+    .product-image {
+        height: 180px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+        .product-image:hover {
+            transform: scale(1.1);
+        }
+
+    /* زر القلب */
+    .fav-btn {
+        transition: transform 0.2s ease;
+    }
+
+        .fav-btn:hover {
+            transform: scale(1.2);
+        }
+
+    /* الزرار */
+    .btn-gradient {
+        background: linear-gradient(120deg, #4b6cb7, #182848);
+        color: white;
+        font-weight: 600;
+        border: none;
+        border-radius: 10px;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+        .btn-gradient:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+            color: red;
+        }
+
+    /* الرسالة */
+    .action-message {
+        position: fixed;
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #222;
+        color: #fff;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: 600;
+        display: none;
+        z-index: 9999;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+</style>

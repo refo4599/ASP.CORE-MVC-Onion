@@ -1,0 +1,76 @@
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Infrastructure.deps.json
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Infrastructure.runtimeconfig.json
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Infrastructure.dll
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Infrastructure.pdb
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Application.dll
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Models.dll
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Application.pdb
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Models.pdb
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.AssemblyInfo.cs
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaura.93EDDBD4.Up2Date
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.dll
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\refint\Restaurant.Infrastructure.dll
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.pdb
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.genruntimeconfig.cache
+C:\Users\Shoman\Desktop\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\ref\Restaurant.Infrastructure.dll
+D:\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Infrastructure.deps.json
+D:\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Infrastructure.runtimeconfig.json
+D:\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Infrastructure.dll
+D:\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Infrastructure.pdb
+D:\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Application.dll
+D:\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Models.dll
+D:\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Application.pdb
+D:\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Models.pdb
+D:\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.csproj.AssemblyReference.cache
+D:\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.AssemblyInfoInputs.cache
+D:\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.AssemblyInfo.cs
+D:\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaura.93EDDBD4.Up2Date
+D:\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.dll
+D:\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\refint\Restaurant.Infrastructure.dll
+D:\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.pdb
+D:\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.genruntimeconfig.cache
+D:\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\ref\Restaurant.Infrastructure.dll
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Infrastructure.deps.json
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Infrastructure.runtimeconfig.json
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Infrastructure.dll
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Infrastructure.pdb
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Application.dll
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Models.dll
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Application.pdb
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Models.pdb
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.AssemblyInfo.cs
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaura.93EDDBD4.Up2Date
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.dll
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\refint\Restaurant.Infrastructure.dll
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.pdb
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.genruntimeconfig.cache
+C:\Users\Shoman\Desktop\New folder (2)\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\ref\Restaurant.Infrastructure.dll
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Infrastructure.deps.json
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Infrastructure.runtimeconfig.json
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Infrastructure.dll
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Infrastructure.pdb
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Application.dll
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Models.dll
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Application.pdb
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\bin\Debug\net9.0\Restaurant.Models.pdb
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.csproj.AssemblyReference.cache
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.AssemblyInfoInputs.cache
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.AssemblyInfo.cs
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.csproj.CoreCompileInputs.cache
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaura.93EDDBD4.Up2Date
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.dll
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\refint\Restaurant.Infrastructure.dll
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.pdb
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.genruntimeconfig.cache
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\ref\Restaurant.Infrastructure.dll

@@ -1,0 +1,37 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Staff Dashboard";
+}
+
+<div class="container py-4">
+    <h2 class="mb-4 text-center text-primary fw-bold">Staff Dashboard</h2>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <a asp-controller="AdminOrder" asp-action="Index" class="text-decoration-none">
+                <div class="card shadow-sm text-center p-4">
+                    <h5>📬 Orders</h5>
+                    <p class="text-muted">Manage Orders</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a asp-controller="AdminProduct" asp-action="Index" class="text-decoration-none">
+                <div class="card shadow-sm text-center p-4">
+                    <h5>🍔 Products</h5>
+                    <p class="text-muted">Add or edit menu items</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a asp-controller="AdminCategory" asp-action="Index" class="text-decoration-none">
+                <div class="card shadow-sm text-center p-4">
+                    <h5>📦 Categories</h5>
+                    <p class="text-muted">Manage categories</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

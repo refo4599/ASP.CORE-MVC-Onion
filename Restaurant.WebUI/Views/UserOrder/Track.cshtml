@@ -1,0 +1,275 @@
+﻿@model Restaurant.Models.Order
+
+@{
+    ViewData["Title"] = "تتبع الطلب";
+    var statuses = new[] { "Pending", "Preparing", "Ready", "Completed", "Cancelled" };
+    Layout = "_UserLayout";
+}
+
+<style>
+    .track-container {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        padding: 30px;
+        margin-top: 40px;
+    }
+
+    .progress {
+        height: 15px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        transition: width 0.6s ease;
+    }
+
+    .status-step {
+        text-align: center;
+        font-weight: bold;
+        margin-top: 10px;
+        flex: 1;
+    }
+
+    .step-done {
+        color: #28a745;
+    }
+
+    .step-pending {
+        color: #aaa;
+    }
+
+    .order-info {
+        margin-top: 20px;
+        line-height: 1.8;
+    }
+
+    .btn-back {
+        border-radius: 25px;
+    }
+
+    .status-bar {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 25px;
+    }
+
+    .status-btn {
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid #ddd;
+        background: #f8f9fa;
+        transition: all 0.2s ease;
+    }
+
+        .status-btn.active, .status-btn:hover {
+            background: #0d6efd;
+            color: #fff;
+            border-color: #0d6efd;
+        }
+
+    .summary-box {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 12px;
+        margin-top: 20px;
+    }
+
+        .summary-box div {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+
+        .summary-box .total {
+            font-weight: 700;
+            color: #198754;
+            font-size: 1rem;
+            border-top: 1px solid #ccc;
+            padding-top: 5px;
+            margin-top: 5px;
+        }
+
+    .completion-message {
+        background-color: #d1e7dd;
+        color: #0f5132;
+        border: 1px solid #badbcc;
+        border-radius: 8px;
+        padding: 12px 15px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .timer-box {
+        background-color: #fff3cd;
+        color: #664d03;
+        border: 1px solid #ffecb5;
+        border-radius: 8px;
+        padding: 15px 20px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+    }
+
+    .feedback-box {
+        background-color: #d1e7dd;
+        color: #0f5132;
+        border: 1px solid #badbcc;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 20px;
+        text-align: center;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+        .feedback-box label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .feedback-box textarea, .feedback-box select {
+            width: 100%;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 6px;
+        }
+
+        .feedback-box button {
+            width: 100%;
+        }
+</style>
+
+<div class="container">
+    <div class="track-container">
+        <h3 class="fw-bold text-primary text-center mb-3">
+            <i class="bi bi-truck me-2"></i> تتبع الطلب رقم #@Model.Id
+        </h3>
+
+        @if (Model.Status == "Completed")
+        {
+            <div class="completion-message">
+                ✅ تم اكتمال طلبك بنجاح! شكرًا لتعاملك معنا 💚
+            </div>
+        }
+
+        @if (Model.OrderType == "Delivery" && Model.Status == "Ready")
+        {
+            if (ViewBag.RemainingMinutes > 0)
+            {
+                <div class="timer-box">
+                    ⏳ الوقت المتوقع للتوصيل: @ViewBag.RemainingMinutes دقيقة
+                </div>
+            }
+            else
+            {
+                <div class="timer-box" style="background:#f8d7da; color:#842029; border:1px solid #f5c2c7;">
+                    ☎️ انتهى الوقت، للشكاوى يرجى الاتصال على <b>01128848326</b>
+                </div>
+            }
+        }
+
+
+        <div class="status-bar mb-4">
+            @foreach (var s in statuses)
+            {
+                <span class="status-btn @(Model.Status == s ? "active" : "")">@s</span>
+            }
+        </div>
+
+        @{
+            int progress = Model.Status switch
+            {
+                "Pending" => 20,
+                "Preparing" => 40,
+                "Ready" => 70,
+                "Completed" => 100,
+                "Cancelled" => 0,
+                _ => 0
+            };
+            string progressColor = Model.Status switch
+            {
+                "Cancelled" => "bg-danger",
+                "Completed" => "bg-success",
+                "Ready" => "bg-primary",
+                "Preparing" => "bg-info",
+                "Pending" => "bg-warning",
+                _ => "bg-secondary"
+            };
+        }
+
+        <div class="progress mb-4">
+            <div class="progress-bar @progressColor" style="width:@progress%"></div>
+        </div>
+
+        <div class="d-flex justify-content-between text-center mb-4">
+            <div class="status-step @(Model.Status == "Pending" || Model.Status == "Preparing" || Model.Status == "Ready" || Model.Status == "Completed" ? "step-done" : "step-pending")">
+                <i class="bi bi-cart-check"></i><br />تم استلام الطلب
+            </div>
+            <div class="status-step @(Model.Status == "Preparing" || Model.Status == "Ready" || Model.Status == "Completed" ? "step-done" : "step-pending")">
+                <i class="bi bi-gear"></i><br />جاري التحضير
+            </div>
+            <div class="status-step @(Model.Status == "Ready" || Model.Status == "Completed" ? "step-done" : "step-pending")">
+                <i class="bi bi-box-seam"></i><br />جاهز للتوصيل
+            </div>
+            <div class="status-step @(Model.Status == "Completed" ? "step-done" : "step-pending")">
+                <i class="bi bi-check-circle"></i><br />اكتمل الطلب
+            </div>
+        </div>
+
+        <div class="order-info">
+            <p><strong>📦 الحالة الحالية:</strong> <span class="text-info fw-bold">@Model.Status</span></p>
+            <p><strong>🕒 تاريخ الطلب:</strong> @Model.CreatedAt.ToString("yyyy/MM/dd HH:mm")</p>
+            <p><strong>🍽️ نوع الطلب:</strong> @Model.OrderType</p>
+        </div>
+
+        <div class="summary-box">
+            <div class="total">
+                <span>الإجمالي النهائي:</span>
+                <span>@Model.TotalPrice.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("ar-EG"))</span>
+            </div>
+        </div>
+
+        @if (Model.Status == "Completed")
+        {
+            <div class="feedback-box">
+                <h5>شاركنا رأيك في تجربتك 💬</h5>
+                <form asp-action="SubmitFeedback" asp-controller="UserOrder" method="post">
+                    <input type="hidden" name="OrderId" value="@Model.Id" />
+
+                    <label>تقييم الخدمة:</label>
+                    <select name="Rating" required>
+                        <option value="5">⭐ ⭐ ⭐ ⭐ ⭐ ممتاز</option>
+                        <option value="4">⭐ ⭐ ⭐ ⭐ جيد جداً</option>
+                        <option value="3">⭐ ⭐ ⭐ متوسط</option>
+                        <option value="2">⭐ ⭐ ضعيف</option>
+                        <option value="1">⭐ ضعيف جداً</option>
+                    </select>
+
+                    <label>ملاحظاتك:</label>
+                    <textarea name="Comment" placeholder="اكتب ملاحظاتك هنا..." required></textarea>
+
+                    <button type="submit" class="btn btn-success">إرسال التقييم</button>
+                </form>
+            </div>
+        }
+
+        <div class="text-center mt-4">
+            <a href="/UserOrder/MyOrders" class="btn btn-outline-primary btn-back px-4">
+                <i class="bi bi-arrow-left"></i> الرجوع إلى طلباتي
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Restaurant.Application.ViewModels.ProductMenuVM>
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery antiforgery
+
+@{
+   
+    Layout = "_UserLayout";
+}
+
+
+<meta name="csrf-token" content="@antiforgery.GetAndStoreTokens(ViewContext.HttpContext).RequestToken">
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">My Favourites</h2>
+
+    @if (!Model.Any())
+    {
+        <p class="text-center text-muted">No favourite products yet.</p>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="card shadow-sm border-0 rounded-4 h-100 position-relative">
+
+                        <!-- زر القلب للحذف -->
+                        <button class="btn border-0 fav-btn position-absolute top-0 start-0 m-2 rounded-circle shadow-sm bg-white"
+                                data-id="@item.Id"
+                                style="z-index:10;width:38px;height:38px;display:flex;align-items:center;justify-content:center;">
+                            <i class="bi bi-heart-fill fs-5 text-danger fav-icon"></i>
+                        </button>
+
+                        <img src="@item.ImageUrl" class="card-img-top" style="height:180px; object-fit:cover;" alt="@item.Name" />
+
+                        <div class="card-body text-center p-3">
+                            <h5 class="card-title fw-bold">@item.Name</h5>
+                            <p class="text-muted">@item.Description</p>
+                            <p class="fw-semibold text-success">Price: @item.Price.ToString("C")</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<!-- رسالة toast -->
+<div id="fav-message"
+     style="position: fixed; top: 20px; right: 20px; z-index:9999; display:none;
+            padding:10px 20px; background-color:#333; color:#fff; border-radius:5px;">
+</div>
+
+<!-- JQuery و AJAX -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        var token = $('meta[name="csrf-token"]').attr('content');
+
+        $(".fav-btn").click(function(e){
+            e.preventDefault();
+            var btn = $(this);
+            var productId = btn.data("id");
+
+            $.ajax({
+                url: '/Menu/ToggleFavourite', // نفس ToggleFavourite في Controller
+                type: 'POST',
+                headers: { 'RequestVerificationToken': token },
+                data: { id: productId },
+                success: function(response){
+                    if(response.success){
+                        // إزالة الكرت مباشرة عند الحذف
+                        btn.closest(".col-lg-3").fadeOut();
+                        showMessage(response.message); // رسالة toast
+                    }
+                },
+                error: function(err){
+                    console.error(err);
+                    showMessage("حدث خطأ، جرب مرة أخرى.");
+                }
+            });
+        });
+
+        function showMessage(message){
+            var msgDiv = $("#fav-message");
+            msgDiv.text(message).fadeIn();
+            setTimeout(function(){ msgDiv.fadeOut(); }, 2000);
+        }
+    });
+</script>

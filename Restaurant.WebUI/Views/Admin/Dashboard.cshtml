@@ -1,0 +1,74 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<Restaurant.Models.AppUser> UserManager
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Dashboard";
+
+    var user = await UserManager.GetUserAsync(User);
+    var roles = await UserManager.GetRolesAsync(user);
+    bool isAdmin = roles.Contains("Admin");
+    bool isStaff = roles.Contains("Staff");
+}
+
+<div class="container py-4">
+    <h2 class="mb-4 text-center text-white fw-bold">
+        @(isAdmin ? "Admin Dashboard" : "Staff Dashboard")
+    </h2>
+
+    <div class="row g-4">
+
+        @* Categories *@
+        @if (isAdmin || isStaff)
+        {
+            <div class="col-md-3">
+                <a asp-controller="AdminCategory" asp-action="Index" class="text-decoration-none">
+                    <div class="card shadow-sm text-center p-4">
+                        <h5>📦 Categories</h5>
+                        <p class="text-muted">Manage categories</p>
+                    </div>
+                </a>
+            </div>
+        }
+
+        @*  Products *@
+        @if (isAdmin || isStaff)
+        {
+            <div class="col-md-3">
+                <a asp-controller="AdminProduct" asp-action="Index" class="text-decoration-none">
+                    <div class="card shadow-sm text-center p-4">
+                        <h5>🍔 Products</h5>
+                        <p class="text-muted">Add or edit menu items</p>
+                    </div>
+                </a>
+            </div>
+        }
+
+        @*  Orders *@
+        @if (isAdmin || isStaff)
+        {
+            <div class="col-md-3">
+                <a asp-controller="AdminOrder" asp-action="Index" class="text-decoration-none">
+                    <div class="card shadow-sm text-center p-4">
+                        <h5>📬 Orders</h5>
+                        <p class="text-muted">View and manage orders</p>
+                    </div>
+                </a>
+            </div>
+        }
+
+        @*  Users (Admins only) *@
+        @if (isAdmin)
+        {
+            <div class="col-md-3">
+                <a asp-controller="AdminUser" asp-action="Index" class="text-decoration-none">
+                    <div class="card shadow-sm text-center p-4">
+                        <h5>👥 Users</h5>
+                        <p class="text-muted">Manage users & roles</p>
+                    </div>
+                </a>
+            </div>
+        }
+
+    </div>
+</div>

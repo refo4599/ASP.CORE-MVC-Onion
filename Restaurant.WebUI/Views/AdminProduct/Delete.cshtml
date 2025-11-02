@@ -1,0 +1,124 @@
+﻿@model Restaurant.Models.Product
+@{
+    ViewData["Title"] = "Delete Product";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+   
+    body {
+        background: linear-gradient(120deg, #4b6cb7, #182848);
+        animation: colorShift 10s ease-in-out infinite;
+        background-attachment: fixed;
+        background-size: 400% 400%;
+    }
+
+    @@keyframes colorShift {
+        0% {
+            background: linear-gradient(120deg, #4b6cb7, #182848);
+        }
+
+        25% {
+            background: linear-gradient(120deg, #355c7d, #6c5b7b);
+        }
+
+        50% {
+            background: linear-gradient(120deg, #283e51, #485563);
+        }
+
+        75% {
+            background: linear-gradient(120deg, #2c3e50, #4ca1af);
+        }
+
+        100% {
+            background: linear-gradient(120deg, #4b6cb7, #182848);
+        }
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border: none;
+        border-radius: 16px;
+        color: #fff;
+    }
+
+    h3, h5, p {
+        color: #fff !important;
+    }
+
+    .btn-danger {
+        background: linear-gradient(90deg, #ff6b6b, #d32f2f);
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+    .btn-secondary {
+        background: rgba(255, 255, 255, 0.25);
+        color: #fff;
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+</style>
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-lg p-4 text-center" style="max-width: 500px; width: 100%;">
+        <div class="text-danger mb-3">
+            <i class="bi bi-exclamation-triangle-fill" style="font-size: 3rem;"></i>
+        </div>
+        <h3 class="fw-bold text-danger mb-3">تأكيد حذف المنتج</h3>
+
+        <p class="text-light mb-4">
+            هل أنت متأكد أنك تريد حذف المنتج التالي؟
+        </p>
+
+        <h5 class="fw-bold mb-3">🧾 @Model.Name</h5>
+
+        <div class="mb-4">
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" alt="@Model.Name" class="rounded" style="width:120px; height:120px; object-fit:cover; border:2px solid #fff;" />
+            }
+            else
+            {
+                <span class="text-muted">No Image</span>
+            }
+        </div>
+
+        <form asp-action="DeleteConfirmed" asp-controller="AdminProduct" method="post" onsubmit="return redirectAfterDelete()">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+
+            <div class="d-flex justify-content-center gap-3">
+                <button type="submit" class="btn btn-danger px-4">
+                    <i class="bi bi-trash"></i> تأكيد الحذف
+                </button>
+                <a asp-action="Index" asp-controller="AdminProduct" class="btn btn-secondary px-4">
+                    <i class="bi bi-arrow-left"></i> إلغاء
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+   
+        function redirectAfterDelete() {
+            setTimeout(() => {
+                window.location.href = '/AdminProduct/Index';
+            }, 800);
+            return true;
+        }
+    </script>
+}
