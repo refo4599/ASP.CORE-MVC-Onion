@@ -66,3 +66,4 @@ E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Application\obj\Debug\net9
 E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Application\obj\Debug\net9.0\Restaurant.Application.pdb
 E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Application\obj\Debug\net9.0\Restaurant.Application.genruntimeconfig.cache
 E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Application\obj\Debug\net9.0\ref\Restaurant.Application.dll
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Application\obj\Debug\net9.0\Restaurant.Application.sourcelink.json

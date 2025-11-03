@@ -7,6 +7,34 @@
 }
 
 <style>
+    body {
+        background: linear-gradient(270deg, #ff6ec4, #7873f5, #4ade80, #facc15);
+        background-size: 800% 800%;
+        animation: gradientMove 15s ease infinite;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+    }
+
+    
+    @@keyframes gradientMove {
+        0%
+
+    {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+
+    }
+
     .order-card {
         background: #fff;
         border-radius: 12px;
@@ -146,10 +174,71 @@
             padding-top: 5px;
             margin-top: 5px;
         }
+   
+    .btn-outline-primary {
+        border-color: red;
+        color: white;
+        background: black;
+        transition: all 0.3s ease;
+    }
+
+        .btn-outline-primary:hover {
+            background: linear-gradient(45deg, #6f42c1, #8c68ff);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(111, 66, 193, 0.4);
+        }
+
+    .btn-outline-danger {
+        border-color: #dc3545;
+        color: #dc3545;
+        transition: all 0.3s ease;
+    }
+
+        .btn-outline-danger:hover {
+            background: linear-gradient(45deg, #ff4d4d, #ff6b6b);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(255, 77, 77, 0.4);
+        }
+
+    .btn-outline-info {
+        border-color: #0dcaf0;
+        color: black;
+        transition: all 0.3s ease;
+    }
+
+        .btn-outline-info:hover {
+            background: linear-gradient(45deg, #0dcaf0, #39c0ed);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(13, 202, 240, 0.4);
+        }
+
+    .btn-outline-secondary {
+        border-color: red;
+        color: red;
+        transition: all 0.3s ease;
+    }
+
+        .btn-outline-secondary:hover {
+            background: linear-gradient(45deg, #6c757d, #adb5bd);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(108, 117, 125, 0.4);
+        }
+
+   
+    .btn-action {
+        border-radius: 25px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+    }
+
 </style>
 
 <div class="container py-4">
-    <h2 class="fw-bold text-primary mb-4 text-center">
+    <h2 class="fw-bold text-white mb-4 text-center">
         <i class="bi bi-bag-check-fill me-2"></i> طلبــاتــي
     </h2>
 

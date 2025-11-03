@@ -2,19 +2,91 @@
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery antiforgery
 
 @{
-   
     Layout = "_UserLayout";
 }
 
-
 <meta name="csrf-token" content="@antiforgery.GetAndStoreTokens(ViewContext.HttpContext).RequestToken">
 
+<style>
+   
+    body {
+        background: linear-gradient(270deg, #ff6ec4, #7873f5, #4ade80, #facc15);
+        background-size: 800% 800%;
+        animation: gradientMove 15s ease infinite;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+    }
+
+    @@keyframes gradientMove {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+    .add-to-cart-btn {
+        background: linear-gradient(135deg, #4ade80, #16a34a);
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+    }
+
+        .add-to-cart-btn:hover {
+            background: linear-gradient(135deg, #22c55e, #15803d);
+            transform: scale(1.05);
+        }
+
+    .fav-btn {
+        transition: transform 0.3s ease;
+    }
+
+        .fav-btn:hover {
+            transform: scale(1.1);
+        }
+
+    #fav-message {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        display: none;
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        border-radius: 5px;
+    }
+</style>
+
 <div class="container mt-5">
-    <h2 class="mb-4 text-center">My Favourites</h2>
+    <h2 class="mb-4 text-center text-white fw-bold">
+        <i class="bi bi-heart-fill text-danger"></i> My Favourites
+    </h2>
 
     @if (!Model.Any())
     {
-        <p class="text-center text-muted">No favourite products yet.</p>
+        <p class="text-center text-light">No favourite products yet.</p>
     }
     else
     {
@@ -24,19 +96,26 @@
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="card shadow-sm border-0 rounded-4 h-100 position-relative">
 
-                        <!-- زر القلب للحذف -->
+                    
                         <button class="btn border-0 fav-btn position-absolute top-0 start-0 m-2 rounded-circle shadow-sm bg-white"
                                 data-id="@item.Id"
                                 style="z-index:10;width:38px;height:38px;display:flex;align-items:center;justify-content:center;">
                             <i class="bi bi-heart-fill fs-5 text-danger fav-icon"></i>
                         </button>
 
+                       
                         <img src="@item.ImageUrl" class="card-img-top" style="height:180px; object-fit:cover;" alt="@item.Name" />
 
+                      
                         <div class="card-body text-center p-3">
                             <h5 class="card-title fw-bold">@item.Name</h5>
                             <p class="text-muted">@item.Description</p>
                             <p class="fw-semibold text-success">Price: @item.Price.ToString("C")</p>
+
+                            <!--  Add to Cart -->
+                            <button class="add-to-cart-btn mt-2" data-id="@item.Id">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -45,46 +124,68 @@
     }
 </div>
 
-<!-- رسالة toast -->
-<div id="fav-message"
-     style="position: fixed; top: 20px; right: 20px; z-index:9999; display:none;
-            padding:10px 20px; background-color:#333; color:#fff; border-radius:5px;">
-</div>
+<!-- Toast -->
+<div id="fav-message"></div>
 
 <!-- JQuery و AJAX -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         var token = $('meta[name="csrf-token"]').attr('content');
 
-        $(".fav-btn").click(function(e){
+        // ✅ إزالة من المفضلة
+        $(".fav-btn").click(function (e) {
             e.preventDefault();
             var btn = $(this);
             var productId = btn.data("id");
 
             $.ajax({
-                url: '/Menu/ToggleFavourite', // نفس ToggleFavourite في Controller
+                url: '/Menu/ToggleFavourite',
                 type: 'POST',
                 headers: { 'RequestVerificationToken': token },
                 data: { id: productId },
-                success: function(response){
-                    if(response.success){
-                        // إزالة الكرت مباشرة عند الحذف
+                success: function (response) {
+                    if (response.success) {
                         btn.closest(".col-lg-3").fadeOut();
-                        showMessage(response.message); // رسالة toast
+                        showMessage(response.message);
                     }
                 },
-                error: function(err){
+                error: function (err) {
                     console.error(err);
-                    showMessage("حدث خطأ، جرب مرة أخرى.");
+                    showMessage("حدث خطأ أثناء تحديث المفضلة.");
                 }
             });
         });
 
-        function showMessage(message){
+        // ✅ إضافة إلى الكارت
+        $(".add-to-cart-btn").click(function (e) {
+            e.preventDefault();
+            var productId = $(this).data("id");
+
+            $.ajax({
+                url: '/Cart/AddToCart', // ⚠️ لازم يكون عندك أكشن اسمه AddToCart في CartController
+                type: 'POST',
+                headers: { 'RequestVerificationToken': token },
+                data: { productId: productId, quantity: 1 },
+                success: function (response) {
+                    if (response.success) {
+                        showMessage("✅ تم إضافة المنتج إلى الكارت!");
+                    } else {
+                        showMessage("⚠️ لم يتم الإضافة، حاول لاحقًا.");
+                    }
+                },
+                error: function (err) {
+                    console.error(err);
+                    showMessage("❌ حدث خطأ أثناء الإضافة إلى الكارت.");
+                }
+            });
+        });
+
+        function showMessage(message) {
             var msgDiv = $("#fav-message");
             msgDiv.text(message).fadeIn();
-            setTimeout(function(){ msgDiv.fadeOut(); }, 2000);
+            setTimeout(function () { msgDiv.fadeOut(); }, 2000);
         }
     });
 </script>

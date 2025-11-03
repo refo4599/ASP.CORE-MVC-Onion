@@ -9,8 +9,8 @@ namespace Restaurant.Application.Services
 {
     public class CartService : ICartService
     {
-        private readonly ICartRepository _cartRepository;
-        private readonly IProductRepository _productRepository;
+        private  ICartRepository _cartRepository;
+        private  IProductRepository _productRepository;
 
         public CartService(ICartRepository cartRepository, IProductRepository productRepository)
         {

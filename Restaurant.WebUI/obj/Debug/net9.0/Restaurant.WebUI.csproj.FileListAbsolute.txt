@@ -1446,3 +1446,4 @@ E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.WebUI\obj\Debug\net9.0\ref
 E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.WebUI\obj\Debug\net9.0\Restaurant.WebUI.pdb
 E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.WebUI\obj\Debug\net9.0\Restaurant.WebUI.genruntimeconfig.cache
 E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.WebUI\obj\Debug\net9.0\ref\Restaurant.WebUI.dll
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.WebUI\obj\Debug\net9.0\Restaurant.WebUI.sourcelink.json

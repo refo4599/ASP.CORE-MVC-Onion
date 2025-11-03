@@ -74,3 +74,4 @@ E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\obj\Debug\n
 E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.pdb
 E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.genruntimeconfig.cache
 E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\ref\Restaurant.Infrastructure.dll
+E:\ITI - .NET\MVC\Final Project\Restaurant\Restaurant.Infrastructure\obj\Debug\net9.0\Restaurant.Infrastructure.sourcelink.json

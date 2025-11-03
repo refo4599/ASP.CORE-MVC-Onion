@@ -96,11 +96,11 @@ using (var scope = app.Services.CreateScope())
     var admin = await userManager.FindByEmailAsync("admin@restaurant.com");
     if (admin != null)
     {
-        // إزالة كل الأدوار الحالية
+       
         var currentRoles = await userManager.GetRolesAsync(admin);
         await userManager.RemoveFromRolesAsync(admin, currentRoles);
 
-        // إضافة الدور Admin من جديد
+       
         await userManager.AddToRoleAsync(admin, "Admin");
     }
 }

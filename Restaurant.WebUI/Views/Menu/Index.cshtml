@@ -6,7 +6,7 @@
 }
 <meta name="csrf-token" content="@antiforgery.GetAndStoreTokens(ViewContext.HttpContext).RequestToken">
 
-<!-- 🔹 الإعلان -->
+
 <div class="offer-banner text-center py-3">
     🎉 <strong>عروض خاصة بمطعمنا!</strong> خصومات رائعة على مجموعة من الأطباق المميزة 🍔🍕
     <br>
@@ -15,7 +15,7 @@
     </span>
 </div>
 
-<!-- 🔹 القائمة -->
+
 <div class="menu-container mt-4 mb-5">
     <h2 class="text-center fw-bold display-6 mb-5 text-white">🍽️ Our Menu</h2>
 
@@ -31,7 +31,7 @@
             @foreach (var item in category.Products.Take(5))
             {
                 <div class="product-card shadow-sm position-relative">
-                    <!-- زر القلب -->
+                  
                     <button class="fav-btn position-absolute top-0 end-0 m-2 border-0 bg-transparent"
                             data-id="@item.Id"
                             style="z-index:10;">
@@ -81,10 +81,10 @@
     }
 </div>
 
-<!-- رسالة الأكشن -->
+
 <div id="action-message" class="action-message"></div>
 
-<!-- رسالة التوست للمفضلة -->
+
 <div id="fav-message"
      style="position: fixed; top: 20px; right: 20px; z-index:9999; display:none;
             padding:10px 20px; background-color:#333; color:#fff; border-radius:5px;">
@@ -95,7 +95,7 @@
     $(function () {
         var token = $('meta[name="csrf-token"]').attr('content');
 
-        // ✅ تحميل المفضلات من السيرفر عند بداية الصفحة
+       
         $.get('/Menu/GetFavourites', function (favourites) {
             $(".fav-btn").each(function () {
                 var id = $(this).data("id");
@@ -105,7 +105,7 @@
             });
         });
 
-        // ✅ Toggle Favourite
+      
         $(".fav-btn").click(function (e) {
             e.preventDefault();
             var btn = $(this);
@@ -117,23 +117,35 @@
                 type: 'POST',
                 headers: { 'RequestVerificationToken': token },
                 data: { id: productId },
-                success: function (response) {
-                    if (response.success) {
-                        if (response.added) {
-                            icon.removeClass("bi-heart").addClass("bi-heart-fill text-danger");
-                        } else {
-                            icon.removeClass("bi-heart-fill text-danger").addClass("bi-heart");
-                        }
-                        showFavMessage(response.message);
-                    }
-                },
+             success: function (response) {
+        if (response.success) {
+            showActionMessage(response.message);
+
+           
+            var card = btn.closest(".product-card");
+            var availableText = card.find(".fw-bold.small.mb-2 span.text-success");
+            if (availableText.length) {
+                let current = parseInt(availableText.text().replace(/\D/g, ""));
+                if (current > 1) {
+                    availableText.text("Available: " + (current - 1));
+                } else {
+                  
+                    availableText.removeClass("text-success").addClass("text-danger").text("Out of stock");
+                    btn.prop("disabled", true);
+                }
+            }
+        } else {
+            showActionMessage(response.message || "حدث خطأ ⚠️");
+        }
+    },
+
                 error: function () {
                     showFavMessage("⚠️ حدث خطأ في المفضلة.");
                 }
             });
         });
 
-        // ✅ رسالة صغيرة للمفضلة
+        
         function showFavMessage(message) {
             var msgDiv = $("#fav-message");
             msgDiv.text(message).fadeIn();
@@ -226,7 +238,7 @@
             transform: scale(1.1);
         }
 
-    /* زر القلب */
+   
     .fav-btn {
         transition: transform 0.2s ease;
     }
@@ -235,7 +247,7 @@
             transform: scale(1.2);
         }
 
-    /* الزرار */
+   
     .btn-gradient {
         background: linear-gradient(120deg, #4b6cb7, #182848);
         color: white;
@@ -251,7 +263,7 @@
             color: red;
         }
 
-    /* الرسالة */
+  
     .action-message {
         position: fixed;
         top: 15px;
@@ -267,3 +279,45 @@
         box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
 </style>
+<script>
+    $(function () {
+        var token = $('meta[name="csrf-token"]').attr('content');
+
+      
+        $(".add-to-cart").click(function (e) {
+            e.preventDefault();
+            var btn = $(this);
+            var productId = btn.data("id");
+
+            btn.prop("disabled", true); 
+
+            $.ajax({
+                url: '/Menu/AddToCart',
+                type: 'POST',
+                headers: { 'RequestVerificationToken': token },
+                data: { productId: productId },
+                success: function (response) {
+                    if (response.success) {
+                        showActionMessage(response.message);
+                    } else {
+                        showActionMessage(response.message || "حدث خطأ ⚠️");
+                    }
+                },
+                error: function () {
+                    showActionMessage("⚠️ حدث خطأ أثناء الإضافة للسلة.");
+                },
+                complete: function () {
+                    btn.prop("disabled", false);
+                }
+            });
+        });
+
+
+        function showActionMessage(message) {
+            var msgDiv = $("#action-message");
+            msgDiv.text(message).fadeIn();
+            setTimeout(function () { msgDiv.fadeOut(); }, 2000);
+        }
+    });
+</script>
+

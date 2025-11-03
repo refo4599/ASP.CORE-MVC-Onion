@@ -84,7 +84,7 @@ namespace Restaurant.WebUI.Controllers
             if (product == null)
                 return Json(new { success = false, message = "Product not found" });
 
-            // حساب السعر النهائي بعد الخصم
+            
             decimal finalPrice = product.DiscountPrice ?? _productService.GetFinalPrice(product);
 
             await _cartService.AddToCartAsync(user.Id, new CartItemVM
@@ -113,13 +113,13 @@ namespace Restaurant.WebUI.Controllers
 
             if (user != null)
             {
-                // ✅ مستخدم مسجل - احفظ في قاعدة البيانات
+              
                 var userId = user.Id;
                 added = await _favService.ToggleFavouriteAsync(id, userId);
             }
             else
             {
-                // ✅ زائر - احفظ في Session
+               
                 var sessionData = HttpContext.Session.GetString("Favourites");
                 var favourites = string.IsNullOrEmpty(sessionData)
                     ? new List<int>()
@@ -154,18 +154,18 @@ namespace Restaurant.WebUI.Controllers
 
             if (user != null)
             {
-                // ✅ مستخدم مسجل - المفضلات من قاعدة البيانات
+              
                 favourites = await _favService.GetFavouritesAsync(user.Id);
             }
             else
             {
-                // ✅ زائر - المفضلات من السيشن
+                
                 var sessionData = HttpContext.Session.GetString("Favourites");
                 var favIds = string.IsNullOrEmpty(sessionData)
                     ? new List<int>()
                     : Newtonsoft.Json.JsonConvert.DeserializeObject<List<int>>(sessionData);
 
-                // لو عندك DbContext
+                // DbContext
                 var allProducts = await _productService.GetAllAsync();
                 favourites = allProducts
                     .Where(p => favIds.Contains(p.Id))
